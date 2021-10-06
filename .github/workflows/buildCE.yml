@@ -44,8 +44,12 @@ jobs:
         shell: cmd
         run: 7z a -tzip release.zip * -r
         working-directory: "./Cheat Engine/bin"
-      - name: Release artifact
-        uses: actions/upload-artifact@v2
+      - name: Publish
+        uses: softprops/action-gh-release@v1
         with:
-          name: Release
-          path: "Cheat Engine/bin/release.zip"
+          tag_name: 3.0.x
+          files: release.zip
+          body: |
+            Note: Daily build from last commit
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
