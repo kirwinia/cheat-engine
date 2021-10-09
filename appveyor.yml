@@ -6,14 +6,14 @@
 #---------------------------------#
 
 # CI build version format
-version: 1.0.1.0.0.7.{build}-{branch}
+version: 7.3.x64.{build}-{branch}
 
 #---------------------------------#
 #    environment configuration    #
 #---------------------------------#
 
 # Build worker image (VM template)
-image: Visual Studio 2017
+image: Visual Studio 2019
 # Enable Windows RDP Client Access to Build Worker
 init:
   - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
@@ -24,22 +24,14 @@ init:
 
 # add several platforms to build matrix:
 platform:
-  - Win32
+  - Win64
 
 # Scripts that run after cloning repository
 install:
   - cmd: echo Download lazarus-1.6.4-fpc-3.0.2-win32
-  - cmd: curl -fsSL -o lazarus-1.6.4-fpc-3.0.2-win32.exe "https://www.dropbox.com/s/4l1h2ku0srtscfo/lazarus-1.6.4-fpc-3.0.2-win32.exe?dl=1"
+  - cmd: curl -fsSL -o lazarus-1.6.4-fpc-3.0.2-win32.exe "https://www.dropbox.com/s/zv4uv83ql94d17k/lazarus-1.6.4-fpc-3.0.2-win64.exe?dl=1"
   - cmd: echo Installing lazarus-1.6.4-fpc-3.0.2-win32
   - cmd: lazarus-1.6.4-fpc-3.0.2-win32.exe /verysilent
-  - cmd: echo Downloading lazarus-1.6.4-fpc-3.0.2-cross-x86_64-win64-win32
-  - cmd: curl -fsSL -o lazarus-1.6.4-fpc-3.0.2-cross-x86_64-win64-win32.exe "https://www.dropbox.com/s/vulmr71jdnokxuj/lazarus-1.6.4-fpc-3.0.2-cross-x86_64-win64-win32.exe?dl=1"
-  - cmd: echo Installing lazarus-1.6.4-fpc-3.0.2-cross-x86_64-win64-win32
-  - cmd: lazarus-1.6.4-fpc-3.0.2-cross-x86_64-win64-win32.exe /verysilent
-  - cmd: echo Downloading lazarus-1.6.4-fpc-3.0.2-cross-arm-wince-win32
-  - cmd: curl -fsSL -o lazarus-1.6.4-fpc-3.0.2-cross-arm-wince-win32.exe "https://www.dropbox.com/s/7vyye0rz6cj1ad0/lazarus-1.6.4-fpc-3.0.2-cross-arm-wince-win32.exe?dl=1"
-  - cmd: echo Installing lazarus-1.6.4-fpc-3.0.2-cross-arm-wince-win32.exe
-  - cmd: lazarus-1.6.4-fpc-3.0.2-cross-arm-wince-win32.exe /verysilent
   - cmd: rmdir /S /Q c:\lazarus\docs
   - cmd: rmdir /S /Q c:\lazarus\examples
 
